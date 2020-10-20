@@ -1,8 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import {
-    Appbar
-} from 'react-native-paper';
 
 const TrackCreateScreen = () => {
     return (
