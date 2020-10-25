@@ -52,10 +52,10 @@ const tryLocalSignin = (dispatch) => {
     }
 };
 
-const clearErrors = (dispatch) => {
-    dispatch({
-        type: 'CLEAR_ERROR_MESSAGE'
-    });
+const clearErrorMessage = (dispatch) => {
+    return () => {
+        dispatch({ type: 'CLEAR_ERROR_MESSAGE' })
+    }
 };
 
 const signin = (dispatch) => {
@@ -69,6 +69,7 @@ const signin = (dispatch) => {
                 type: 'SIGNIN',
                 payload: res.data.token
             });
+            // navigate to main flow
             navigate('TrackList');
             // on failure, show error message
         } catch (err) {
@@ -91,6 +92,7 @@ const signup = (dispatch) => {
                 type: 'SIGNIN',
                 payload: res.data.token
             });
+            // navigate to main flow
             navigate('TrackList');
             // on failure, show error message
         } catch (err) {
@@ -113,6 +115,6 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signin, signup, signout, tryLocalSignin },
+    { signin, signup, signout, tryLocalSignin, clearErrorMessage, tryLocalSignin },
     { token: null, errorMessage: '' }
 )
