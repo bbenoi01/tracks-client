@@ -1,16 +1,42 @@
-import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Text, ListItem } from 'react-native-elements';
+import { NavigationEvents, SafeAreaView } from 'react-navigation';
+import { Context as TrackContext } from '../context/TrackContext';
 
 const TrackListScreen = ({ navigation }) => {
+    const { state, fetchTracks } = useContext(TrackContext);
+
+    // console.log('list state', state);
+
     return (
-        <View>
-            <Text style={{ fontSize: 48 }}>TrackListScreen</Text>
-            <Button
-                title='Go to Track Detail'
-                onPress={() => navigation.navigate('TrackDetail')}
+        <SafeAreaView forceInset={{ top: 'always' }}>
+            <NavigationEvents
+                onWillFocus={fetchTracks}
             />
-        </View>
+            <Text h3>TrackListScreen</Text>
+            <View>
+                <FlatList
+                    data={state}
+                    keyExtractor={item => item._id}
+                    renderItem={({ item }) => {
+                        return (
+                            <ListItem
+                                title={item.name}
+                                chevron
+                            />
+                        )
+                    }}
+                />
+            </View>
+        </SafeAreaView>
     );
+};
+
+TrackListScreen.navigationOptions = () => {
+    return {
+      headerShown: false,
+    };
 };
 
 const styles = StyleSheet.create({
