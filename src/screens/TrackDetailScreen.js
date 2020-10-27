@@ -1,12 +1,25 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useContext } from 'react';
+import { SafeAreaView } from 'react-navigation';
+import { StyleSheet } from 'react-native';
+import { Text } from 'react-native-elements';
+import { Context as TrackContext } from '../context/TrackContext';
 
-const TrackDetailScreen = () => {
+const TrackDetailScreen = ({ navigation }) => {
+    const { state } = useContext(TrackContext);
+    const _id = navigation.getParam('_id');
+    const track = state.payload.find(t => t._id === _id);
+
     return (
-        <View>
-            <Text style={{ fontSize: 48 }}>TrackDetailScreen</Text>
-        </View>
+        <SafeAreaView forceInset={{ top: 'always' }}>
+            <Text h3>{track.name}</Text>
+        </SafeAreaView>
     );
+};
+
+TrackDetailScreen.navigationOptions = () => {
+    return {
+      headerShown: false,
+    };
 };
 
 const styles = StyleSheet.create({

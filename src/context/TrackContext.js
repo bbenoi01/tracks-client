@@ -6,10 +6,8 @@ const trackReducer = (action, state) => {
 
     switch (type) {
         case ('FETCH_TRACKS'): {
-            // console.log('my payload', payload);
             return {
-                ...state,
-                tracks: payload
+                payload
             }
         }
         default:
@@ -36,5 +34,5 @@ const createTrack = (dispatch) => {
 export const { Provider, Context } = createDataContext(
     trackReducer,
     { fetchTracks, createTrack },
-    {  }
+    []
 );
